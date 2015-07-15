@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+
+
+#header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+
+#menu {
+    background-color:red;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:400px;
+    width:300px;
+    float:left;
+    padding:5px;	      
+}
+#section {
+    width:430px;
+    float:left;
+    padding:10px;	 	 
+}
+#section3 {
+    width:100px;
+    float:left;
+    padding:10px;	 	 
+}
+#footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+   	padding:5px;	 	 
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+
+
+table#t01 th	{
+    background-color: black;
+    color: white;
+}
+
+
+           #slider1 {
+                position:relative;  /* Containers need relative or absolute position. */
+                margin-left:20px;
+                width:256px;
+                height:120px;
+                border-top:1px solid #aaa;
+                border-bottom:1px solid #aaa;
+            }
+
+            #slider2 {
+                position:relative;
+                margin-left:20px;
+                width:75%;
+                height:120px;
+                border-top:1px solid #aaa;
+                border-bottom:1px solid #aaa;
+            }
+
+            #slider3 {
+                position:relative;
+                margin-top:40px;
+                width:93px;
+                height:256px;
+                border-left:1px solid #aaa;
+                border-right:1px solid #aaa;
+                margin-bottom:40px;
+            }
+
+
+</style>	
+			
+     <link rel="stylesheet" type="text/css" href="/public/thumbelina/thumbelina.css" />
+     <script type="text/javascript" src="/public/javascripts/jquery-1.6.4.min.js"></script>
+     <script type="text/javascript" src="/public/thumbelina/thumbelina.js"></script>
+	
+
+
+       <script type="text/javascript">
+            $(function(){
+                
+                $('#slider1').Thumbelina({
+                    $bwdBut:$('#slider1 .left'),    // Selector to left button.
+                    $fwdBut:$('#slider1 .right')    // Selector to right button.
+                });
+                
+                $('#slider2').Thumbelina({
+                    $bwdBut:$('#slider2 .left'),    // Selector to left button.
+                    $fwdBut:$('#slider2 .right')    // Selector to right button.
+                });
+                
+                $('#slider3').Thumbelina({
+                    orientation:'vertical',         // Use vertical mode (default horizontal).
+                    $bwdBut:$('#slider3 .top'),     // Selector to top button.
+                    $fwdBut:$('#slider3 .bottom')   // Selector to bottom button.
+                });
+              
+            })
+            
+            function loadImagen(img){
+            	//alert(img.id);
+            	#{list items:catalog.products.values(), as:'product'}
+            		i=${product.code};
+            		//alert("for:"+i);
+            		if (${product.code}==img.id){
+            			//alert("dentro del if: bingo"+img.id);
+                   		path="/public/images/products/${product.nombreImagen}";
+                    	document.getElementById("imgSelected").src=path;
+                    	document.getElementById("codigo").value="${product.code}";
+                    	document.getElementById("descripcion").value="${product.description}";
+                    	document.getElementById("stock").value="${product.numStock}";
+                    	document.getElementById("precio").value="${product.price}";
+                    	return false;
+            		}            			            		
+               	#{/list}                
+         	
+            }
+
+            
+            
+            $(document).ready(function() {
+				$("#anadir").click(function(){
+					//if ($.trim($('#cant').val()).length == 0) {
+					if ($('#cant').val() == '') {	
+					   alert("usted tiene que ingresar una cantidad");
+					   return false;
+					}				
+				});
+				
+				$("#imgSelected").dblclick(function(){
+                	code=document.getElementById("codigo").value;
+                	//alert(code);
+                	
+                	#{list items:catalog.products.values(), as:'product'}
+                	
+            			
+              		if (${product.code}==code){
+        				//if (${product.stock} == true)
+        					//alert("SI hay stock");
+        				//else
+        					//alert("NO hay stock");
+
+        			}
+        			
+                		
+                		if (${product.code}==code){
+            				if (${product.numStock} > 0)
+            					alert("SI hay stock");
+            				else
+            					alert("NO hay stock");
+
+            			}
+                	
+                   	#{/list}                
+
+				
+            			
+				});
+				
+            });
+
+        </script>
+
+</head>
+
+<body>
+
+<div id="header" >
+<h1>Universidad Tecnica de Cotopaxi</h1>
+	
+</div>
+
+
+
+
+
+<div id="menu">
+La Man -
+Singchos -
+Pangua 
+</div>
+
+<div id="nav">
+        <h1>CATALOGO DE PRODUCTOsssssS</h1>
+        <div id="slider1">
+            <div class="thumbelina-but horiz left">&#706;</div>
+            <ul>
+            	#{list items:catalog.products.values(), as:'product'}
+<li><img id="${product.code}" onclick="loadImagen(this)" width="81px" height="97px" src="/public/images/products/${product.nombreImagen}"></li>
+               	#{/list}                
+                
+            </ul>
+            <div class="thumbelina-but horiz right">&#707;</div>
+        </div>	
+
+</div>
+
+<div id="section">
+<a href="@{EstaticasController.vision()}">vision </a>
+
+   <ul>
+   </ul>
+
+#{form id:'itemForm', action:@Application.index(), method:'POST', enctype:'multipart/form-data' }	
+<table>
+	<tr>
+		<td colspan="6" align="center">
+       		<img id="imgSelected" width="81px" height="107px" src="/public/images/products/${catalog.products.get(1L).nombreImagen}">                
+		</td>	
+	</tr>
+	<tr>
+		<td>Codigo</td>	
+		<td>Descripcion</td>
+		<td>Stock</td>		
+		<td>Precio</td>
+		<td>Cantidad</td>
+		<td>Accion</td>
+	</tr>
+	<tr>
+		<td><input id="codigo" name="code" size="3" type="text" value="${catalog.products.get(1L).code}"></td>
+		<td><input id="descripcion" name="description" size="5" type="text"  value="${catalog.products.get(1L).description}"></td>
+		<td><input id="stock" name="stock" size="3" type="text"  value="${catalog.products.get(1L).numStock}"></td>				
+		<td><input id="precio" name="price" size="3" type="text"  value="${catalog.products.get(1L).price}"></td>									
+		<td><input id="cant" name="cantidad" size="3" type="text"></td>
+		<td><input id="anadir" size="5" type="submit" value="Anadir"></td>		
+	</tr>
+</table>
+#{/form}
+
+</div>
+
+<div id="section3">		
+	<table>
+
+
+		<tr>
+			<td colspan="6">CARRITO DE COMPRAS</td>
+		</tr>
+
+		<script>
+		function calcularTotal(){
+			acuTotal=0;
+			#{list items:r.currentSale.items, as:'item'}
+				idPriceTax="priceTax"+${item.product.code};
+				//alert(idPriceTax);
+				acu=document.getElementById(idPriceTax).value;
+				acu2=parseFloat(acu);
+				acuTotal=acuTotal + acu2;
+			#{/list}
+			document.getElementById("acuTotal").value=acuTotal;
+		}
+		</script>
+		
+		<tr>
+			<td>Descripccion</td>
+			<td>Precio</td>
+			<td>Cantidad</td>
+			<td>Cantidad</td>			
+			<td>Subtotal</td>
+			<td>Accion</td>									
+		</tr>
+		#{if r.currentSale.items.size() > 0 }
+		#{list items:r.currentSale.items, as:'item'}
+		<tr>
+			<td><input  type="text"  size="8" value="${item.product.description}"></td>
+			<td><input  type="text" size="4" value="${item.product.price}"></td>			
+			<td><input  type="text" size="3" value="${item.quantity}"></td>
+			<td><input  type="text" size="3" value="12%"></td>			
+			<td><input id="priceTax${item.product.code}" type="text" size="3" value="${item.tax}"></td>
+			<td><input  type="button" size="3" value="Eliminar"></td>						
+		</tr>                
+		#{/list}
+		#{/if}
+
+		
+		<tr>	
+			<td colspan=4>Total:</td>			
+			<td><input id="acuTotal" type="text" size="3" value=""></td>	
+			<td><input type="button" size="3" onclick="calcularTotal()" value="CalcularTotal"></td>											
+		</tr>   
+		<tr>	
+			<td align="center" colspan=6><input type="submit" value="CONFIRMAR COMPRA"></td>			
+		</tr>  
+	
+	</table> 
+</div>
+
+
+<div id="footer">
+Copyright  Sal y Mileto
+
+<canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+</div>
+
+
+</body>
+</html>
+
+

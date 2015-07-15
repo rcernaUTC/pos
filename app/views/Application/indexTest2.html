@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+
+
+#header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+
+#menu {
+    background-color:red;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:400px;
+    width:500px;
+    float:left;
+    padding:5px;	      
+}
+#section {
+    width:450px;
+    float:left;
+    padding:10px;	 	 
+}
+#footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+   	padding:5px;	 	 
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+
+
+table#t01 th	{
+    background-color: black;
+    color: white;
+}
+</style>	
+			
+	
+	
+
+
+</head>
+
+<body>
+
+<div id="header" >
+<h1>Universidad Tecnica de Cotopaxi</h1>
+	
+</div>
+
+
+
+	<link rel='stylesheet' href='/public/carousel.css' type='text/css' />
+
+
+<div id="menu">
+La Man -
+Singchos -
+Pangua 
+</div>
+
+<div id="nav">
+
+		    <div class="infiniteCarousel">
+		      <div style="overflow: hidden;" class="wrapper">
+		        <ul>		       			     
+	       			     <li5>
+	       			       <img title="ads" onclick="" src="/public/images/products/cocaCola.png" alt="" height="75" width="75"> 	    
+	       			     </li5>  
+         				
+
+         			
+		        </ul>        
+		      </div>
+		      <a class="back"></a>
+		      <a class="forward"></a>
+		      		      
+	      
+		      <script type="text/javascript" src="/public/carousel.js"></script>	      
+		    </div>
+
+	
+
+
+	<div id="gallery" style="display:none;">
+	
+		<img id="img1" alt="Preview Image 1"
+			 src="/public/images/products/cocaCola.png"
+			 data-image="/public/images/products/cocaCola.png"
+			 data-description="Preview Image 1 Description">
+
+		
+		<img alt="Preview Image 2"
+			 src="/public/images/products/fanta.jpg"
+			 data-image="/public/images/products/fanta.jpg"
+			 data-description="Preview Image 2 Description">		
+
+		<img alt="Preview Image 3"
+			 src="/public/images/products/sprite.png"
+			 data-image="/public/images/products/sprite.png"
+			 data-description="Preview Image 3 Description">
+
+		<img alt="Preview Image 4"
+			 src="/public/images/products/fioravanti.jpg"
+			 data-image="/public/images/products/fioravanti.jpg"
+			 data-description="Preview Image 3 Description">
+			 
+		<img alt="Preview Image 5"
+			 src="/public/images/products/incaKola.jpg"
+			 data-image="/public/images/products/incaKola.jpg"
+			 data-description="Preview Image 3 Description">
+			 
+		<img alt="Preview Image 6"
+			 src="/public/images/products/nestea.jpg"
+			 data-image="/public/images/products/nestea.jpg"
+			 data-description="Preview Image 3 Description">			 			 			 
+			 
+			 			 
+	</div>
+
+</div>
+
+<div id="section">
+<a href="@{EstaticasController.vision()}">vision </a>
+
+
+<table>		
+		
+		#{list items:catalog.products.values(), as:'product'}
+		<tr>
+			<td>${product.code}</td>	
+			<td>${product.description}</td>		
+			<td>${product.price}</td>		
+				
+		</tr>
+		#{/list}
+</table>
+
+
+#{form id:'itemForm', action:@Application.ingresarItem(), method:'POST', enctype:'multipart/form-data' }	
+<table>
+	<tr>
+		<td>Elija el producto que desea comprar:</td>
+		<td>
+			<select>
+				#{list items:catalog.products.values(), as:'product'}			
+					<option value="${product.code}">${product.description}</option>
+				#{/list}
+			</select>
+		</td>
+		<td>Ingrese la cantidad:</td>		
+		<td><input  name="cantidad" size="5" type="text"></td>
+		<td><input size="5" type="submit" value="Comprar"></td>		
+	</tr>
+</table>
+#{/form}
+
+</div>
+
+
+
+<div id="footer">
+Copyright  Sal y Mileto
+
+<canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+</div>
+
+
+</body>
+</html>
